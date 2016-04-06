@@ -4,7 +4,7 @@
     android:layout_height="wrap_content" >
 
     <ImageView
-      	android:id="@+id/imageView1"
+      	android:id="@+id/thumbnail"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_centerVertical="true"
@@ -14,12 +14,12 @@
         android:src="@drawable/generic" />
 
     <TextView
-        android:id="@+id/Model"
+        android:id="@+id/Title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
         android:layout_toLeftOf="@+id/Price"
-        android:layout_toRightOf="@+id/imageView1"
+        android:layout_toRightOf="@+id/thumbnail"
         android:maxLines="1"
         android:text="title"
         android:textColor="@android:color/black"
@@ -39,8 +39,8 @@
         android:id="@+id/Description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Model"
-        android:layout_toRightOf="@+id/imageView1"
+        android:layout_below="@+id/Title"
+        android:layout_toRightOf="@+id/thumbnail"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="desc"

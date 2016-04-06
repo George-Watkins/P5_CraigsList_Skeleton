@@ -1750,8 +1750,8 @@ containing a value of this type.
     }
     public static final class id {
         public static final int Description=0x7f0c0056;
-        public static final int Model=0x7f0c0054;
         public static final int Price=0x7f0c0055;
+        public static final int Title=0x7f0c0054;
         public static final int action0=0x7f0c0057;
         public static final int action_bar=0x7f0c0041;
         public static final int action_bar_activity_content=0x7f0c0000;
@@ -1793,7 +1793,6 @@ containing a value of this type.
         public static final int icon=0x7f0c0029;
         public static final int ifRoom=0x7f0c001d;
         public static final int image=0x7f0c0026;
-        public static final int imageView1=0x7f0c0053;
         public static final int info=0x7f0c0062;
         public static final int line1=0x7f0c005c;
         public static final int line3=0x7f0c0060;
@@ -1841,6 +1840,7 @@ containing a value of this type.
         public static final int text=0x7f0c0061;
         public static final int text2=0x7f0c005f;
         public static final int textSpacerNoButtons=0x7f0c0034;
+        public static final int thumbnail=0x7f0c0053;
         public static final int time=0x7f0c005d;
         public static final int title=0x7f0c002a;
         public static final int title_template=0x7f0c002f;

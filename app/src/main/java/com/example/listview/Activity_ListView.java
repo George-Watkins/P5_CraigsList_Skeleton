@@ -1,17 +1,28 @@
 package com.example.listview;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class Activity_ListView extends AppCompatActivity {
 
 
 	ListView my_listview;
+	ArrayList<String> spinnerSort = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +40,9 @@ public class Activity_ListView extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		android.support.v7.app.ActionBar actionBar = getSupportActionBar();
 
+		spinnerSort.add("Company");
+		spinnerSort.add("Location");
+		spinnerSort.add("Price");
 		setupSimpleSpinner();
 
 		//set the listview onclick listener
@@ -59,10 +73,31 @@ public class Activity_ListView extends AppCompatActivity {
 	 * bind it to the spinner
 	 * Also create a OnItemSelectedListener for this spinner so
 	 * when a user clicks the spinner the list of bikes is resorted according to selection
-	 * dontforget to bind the listener to the spinner with setOnItemSelectedListener!
+	 * dont forget to bind the listener to the spinner with setOnItemSelectedListener!
 	 */
 	private void setupSimpleSpinner() {
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(Activity_ListView.this, R.layout.spinner_item, spinnerSort);
+		spinner = (Spinner) findViewById(R.id.spinner);
+		spinner.setAdapter(dataAdapter);
 
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			public static final int SELECTED_ITEM = 0;
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				if (parent.getChildAt(SELECTED_ITEM) != null) {
+					((TextView) parent.getChildAt(SELECTED_ITEM)).setTextColor(Color.WHITE);
+					Toast.makeText(Activity_ListView.this, (String) parent.getItemAtPosition(position), Toast.LENGTH_LONG).show();
+
+					//This is where we will sort the list view
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
