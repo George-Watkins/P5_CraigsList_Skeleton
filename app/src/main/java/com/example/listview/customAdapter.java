@@ -18,13 +18,24 @@ public class customAdapter extends BaseAdapter{
     Context context;
     List<BikeData> rowItems;
     LayoutInflater myInflater;
+    String url = "http://www.tetonsoftware.com/bikes/bikes.json";
+    private Activity_ListView mainAc;
 
+    public customAdapter(Context context, int resource, List<BikeData> rowItems){
+        this.rowItems = rowItems;
+    }
+
+    public customAdapter(Activity_ListView activity){
+        this.mainAc = activity;
+        myInflater = (LayoutInflater)mainAc.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
     public class ViewHolder {
         ImageView thumbNail;
-        TextView tvDescription;
-        TextView tvTitle;
-        TextView tvPrice;
+        TextView  tvDescription;
+        TextView  tvTitle;
+        TextView  tvPrice;
+        public int position;
     }
 
     @Override
@@ -45,6 +56,7 @@ public class customAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
+        holder.position = position;
 
         myInflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if(convertView == null){
@@ -62,10 +74,12 @@ public class customAdapter extends BaseAdapter{
 
         BikeData bikeData = (BikeData) getItem(position);
 
-        holder.tvDescription.setText("Fix this, need to get from builder class");
-        holder.tvTitle.setText("Fix this, need to get from builer class");
-        holder.tvPrice.setText("Fix this, need to get from builer class");
-        holder.thumbNail.setImageResource(R.drawable.bike3);
+        holder.tvDescription.setText(bikeData.DESCRIPTION);
+        holder.tvTitle.setText(bikeData.MODEL);
+        holder.tvPrice.setText("Fix this. bikeData.PRICE is a double not a string");
+//        holder.thumbNail.setImageResource(R.drawable.bike3);  //bike3 is a preset image.  Need to fix this still.
+
+        new DownloadImageTask(bikeData.PICTURE,holder.thumbNail).execute(url);
 
         return convertView;
     }

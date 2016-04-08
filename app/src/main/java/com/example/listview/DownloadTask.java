@@ -18,7 +18,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
     private static final String TAG = "DownloadTask";
     private static final int BUFFER_SIZE = 8096;
-    Activity_ListView myActivity;
+    JSONHelper myActivity;
 
     // 1 second
     private static final int TIMEOUT = 1000;
@@ -26,7 +26,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
     String myURL;
     int statusCode = 0;
 
-    DownloadTask(Activity_ListView activity) {
+    DownloadTask(JSONHelper activity) {
         attach(activity);
     }
 
@@ -106,8 +106,10 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
             } finally {
                 // close resource no matter what exception occurs
-                in.close();
-                connection.disconnect();
+                if(in != null){
+                    in.close();
+                    connection.disconnect();
+                }
             }
         } catch (Exception exc) {
             exc.printStackTrace();
@@ -117,7 +119,9 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        //TODO Your Stuff Here
+        if(myActivity != null){
+            myActivity.parseAll(result);
+        }
     }
 
     /*
@@ -142,7 +146,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
      * @param activity
      *            grab a reference to this activity, mindful of leaks
      */
-    void attach(Activity_ListView activity) {
+    void attach(JSONHelper activity) {
         this.myActivity = activity;
     }
 

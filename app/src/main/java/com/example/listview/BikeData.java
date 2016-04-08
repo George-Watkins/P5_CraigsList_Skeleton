@@ -6,12 +6,14 @@ package com.example.listview;
  * with many optional fields
  */
 public class BikeData {
-    public static final int COMPANY = 0;
-    public static final int MODEL = 1;
-    public static final int PRICE = 2;
-    public static final int LOCATION = 3;
-
-    //TODO make all BikeData fields final
+    final String COMPANY;
+    final String MODEL;
+    final double PRICE;
+    final String LOCATION;
+    final String DESCRIPTION;
+    final String DATE;
+    final String PICTURE;
+    final String LINK;
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
@@ -23,7 +25,14 @@ public class BikeData {
     }
 
     private BikeData(Builder b) {
-        //TODO
+        this.COMPANY     = b.Company;
+        this.MODEL       = b.Model;
+        this.PRICE       = b.Price;
+        this.LOCATION    = b.Location;
+        this.DESCRIPTION = b.Description;
+        this.DATE        = b.Date;
+        this.PICTURE     = b.Picture;
+        this.LINK        = b.Link;
     }
 
     /**
@@ -46,34 +55,31 @@ public class BikeData {
         Builder(String Company, String Model, Double Price) {
             this.Company = Company;
             this.Model = Model;
-            this.Price = Price;
+            this.Price = Price;  //may have to make not final so we can set price
         }
 
-        // the following are setters
-        // notice it returns this bulder
-        // makes it suitable for chaining
         Builder setDescription(String Description) {
-            //TODO manage this
+            this.Description = Description;
             return this;
         }
 
         Builder setLocation(String Location) {
-
+            this.Location = Location;
             return this;
         }
 
         Builder setDate(String Date) {
-
+            this.Date = Date;
             return this;
         }
 
         Builder setPicture(String Picture) {
-
+            this.Picture = Picture;
             return this;
         }
 
         Builder setLink(String Link) {
-
+            this.Link = Link;
             return this;
         }
 

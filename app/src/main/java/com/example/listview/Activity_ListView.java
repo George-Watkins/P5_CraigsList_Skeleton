@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -23,6 +25,11 @@ public class Activity_ListView extends AppCompatActivity {
 
 	ListView my_listview;
 	ArrayList<String> spinnerSort = new ArrayList<>();
+	customAdapter adapter;
+	ArrayList<BikeData> arrayList = new ArrayList<>();
+	String url = "http://www.tetonsoftware.com/bikes/bikes.json";
+	JSONArray jsonArray;
+	JSONHelper helperActivity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,11 @@ public class Activity_ListView extends AppCompatActivity {
 
 		//listview that you will operate on
 		my_listview = (ListView)findViewById(R.id.lv);
+
+		//custom adapter
+		DownloadTask myTask = new DownloadTask(helperActivity);
+		myTask.execute(url);
+		adapter = new customAdapter(Activity_ListView.this, R.layout.listview_row_layout, helperActivity.parseAll(url));
 
 		//toolbar
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -52,7 +64,21 @@ public class Activity_ListView extends AppCompatActivity {
 		//TODO when it returns it should process this data with bindData
 	}
 
+	private void setJSON(int i) {
+		jsonArray = new JSONArray();
+		if(jsonArray == null){
+			return;
+		}
+
+		try{
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void setupListViewOnClickListener() {
+
 		//TODO you want to call my_listviews setOnItemClickListener with a new instance of android.widget.AdapterView.OnItemClickListener() {
 	}
 
@@ -68,13 +94,7 @@ public class Activity_ListView extends AppCompatActivity {
 	}
 
 	Spinner spinner;
-	/**
-	 * create a data adapter to fill above spinner with choices(Company,Location and Price),
-	 * bind it to the spinner
-	 * Also create a OnItemSelectedListener for this spinner so
-	 * when a user clicks the spinner the list of bikes is resorted according to selection
-	 * dont forget to bind the listener to the spinner with setOnItemSelectedListener!
-	 */
+
 	private void setupSimpleSpinner() {
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(Activity_ListView.this, R.layout.spinner_item, spinnerSort);
 		spinner = (Spinner) findViewById(R.id.spinner);
@@ -110,8 +130,8 @@ public class Activity_ListView extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
-		default:
-			break;
+			default:
+				break;
 		}
 		return true;
 	}
